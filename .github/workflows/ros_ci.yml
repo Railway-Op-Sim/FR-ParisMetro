@@ -3,6 +3,9 @@ on:
   push:
     branches-ignore:
       - master
+  pull_request:
+    branches:
+      - master
 jobs:
     ci-test:
         name: Test if Mergeable with Master Branch
@@ -38,10 +41,12 @@ jobs:
               with:
                 name: results
                 path: mr_check_output
+              if: ${{ github.event_name == 'pull_request'}}
 
             - uses: actions/download-artifact@v1
               with:
                 name: results
+              if: ${{ github.event_name == 'pull_request'}}
                 
             - name: comment PR
               uses: machine-learning-apps/pr-comment@master
@@ -49,3 +54,4 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                 path: results/mr-result.md
+              if: ${{ github.event_name == 'pull_request'}}
