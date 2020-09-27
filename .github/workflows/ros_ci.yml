@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - master
+    types: [assigned, opened, synchronize, reopened]
 jobs:
     ci-test:
         name: Test if Mergeable with Master Branch
