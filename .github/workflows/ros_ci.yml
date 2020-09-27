@@ -22,6 +22,10 @@ jobs:
               shell: bash
               run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
               id: extract_branch
+            
+            - run: |
+                   git checkout master
+                   git checkout ${{ steps.extract_branch.outputs.branch }}
 
             - name: Run MR Merge Script
               run: git_merge_ttb ${{ steps.extract_branch.outputs.branch }} --soft --ttb-path Program_Timetables
