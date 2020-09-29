@@ -117,7 +117,7 @@ jobs:
         run: |
             Copy-Item 'Program_Timetables\*.ttb' -destination '.'
             Copy-Item 'Railway\*.rly' -destination '.'
-            Rename-Item -Path '*.ttb' -NewName 'temp.ttb'
+            Rename-Item -Path '*.ttb' -NewName 'test.ttb'
             Rename-Item -Path '*.rly' -NewName 'railway.rly'
             Get-ChildItem -Path .
       
