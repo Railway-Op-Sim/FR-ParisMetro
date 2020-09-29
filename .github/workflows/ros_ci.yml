@@ -102,7 +102,12 @@ jobs:
       - name: Retrieve Timetable Checker
         uses: actions/download-artifact@v1
         with:
-          name: ttb_check
+          name: ttb_checker
+          
+      - name: Retrieve Timetable Checker
+        uses: actions/download-artifact@v1
+        with:
+          name: result_check
       
       - name: Unpack Validator
         run: Expand-Archive -LiteralPath 'ttb_checker\software\TimetableChecker.zip' -D 'TimetableChecker'
