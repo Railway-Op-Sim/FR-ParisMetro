@@ -80,7 +80,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         name: ttb_check
         path:
-        software/TimetableChecker.zip
+            software/TimetableChecker.zip
             scripts/ttb_check.ps1
 
   run_timetable_check:
