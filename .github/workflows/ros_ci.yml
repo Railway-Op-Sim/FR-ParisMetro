@@ -84,8 +84,13 @@ jobs:
         
       - uses: actions/upload-artifact@v1
         with:
-            name: ttb_check
+            name: ttb_checker
             path: CI-Development/software/TimetableChecker.zip
+      
+      - uses: actions/upload-artifact@v1
+        with:
+            name: result_check
+            path: CI-Development/scripts/ttb_check.ps1
 
   run_timetable_check:
     needs: ci-test
@@ -114,5 +119,5 @@ jobs:
         run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
 
       - name: Check Output
-        run: .\ttb_check\scripts\ttb_check.ps1
+        run: .\result_check\scripts\ttb_check.ps1
         shell: powershell
