@@ -99,21 +99,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Retrieve Timetable Checker
+      - name: Setup Python for Parsing Output
+        uses: actions/setup-python@v2
+        with:
+            python-version: 3.8
+
+      - name: Retrieve Timetable Checker Executable
         uses: actions/download-artifact@v1
         with:
           name: ttb_checker
           
-      - name: Retrieve Timetable Checker
+      - name: Retrieve Timetable Check Output Parser
         uses: actions/download-artifact@v1
         with:
           name: result_check
       
-      - name: Unpack Validator
+      - name: Unpack Executable from Archive
         run: Expand-Archive -LiteralPath 'ttb_checker\TimetableChecker.zip' -D 'TimetableChecker'
         shell: powershell
 
-      - name: Prepare Files for Check
+      - name: Prepare Railway and Timetable Files for Checking
         run: |
             Copy-Item 'Program_Timetables\*.ttb' -destination '.'
             Copy-Item 'Railway\*.rly' -destination '.'
@@ -121,13 +126,8 @@ jobs:
             Rename-Item -Path '*.rly' -NewName 'railway.rly'
             Get-ChildItem -Path .
       
-      - name: Run Timetable Checker on Test Files
+      - name: Run Timetable Checker Executable
         run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
 
-      - name: Setup Python for Parsing Output
-        uses: actions/setup-python@v2
-        with:
-            python-version: 3.8
-
-      - name: Check Output
+      - name: Parse Output File with Python
         run: python result_check/ttb_check.py Output.txt
