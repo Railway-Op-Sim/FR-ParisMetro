@@ -92,9 +92,9 @@ jobs:
 
       - name: Retrieve Timetable Checker
         uses: actions/download-artifact@v1
-          with:
-            name: results
-          if: ${{ github.event_name == 'pull_request'}}
+        with:
+          name: results
+        if: ${{ github.event_name == 'pull_request'}}
       
       - name: Unpack Validator
         run: Expand-Archive -LiteralPath 'results\TimetableChecker.zip'
