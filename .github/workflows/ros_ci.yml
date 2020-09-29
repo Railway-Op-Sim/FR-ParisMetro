@@ -8,68 +8,108 @@ on:
       - master
     types: [assigned, opened, synchronize, reopened]
 jobs:
-    ci-test:
-        name: Test if Mergeable with Master Branch
-        runs-on: ubuntu-latest
-        container:
-            image: artemisbeta/railwayopsim-ci:latest
-            env:
-                DEBIAN_FRONTEND : noninteractive
-                LANG : 'en_GB.UTF-8' 
-                LANGUAGE : 'en_GB:en' 
-                LC_ALL : 'en_GB.UTF-8'
-        
-        steps:
-            - uses: actions/checkout@v2
-              with:
-                fetch-depth: 0
+  ci-test:
+    id: ci-test
+    name: Test if Mergeable with Master Branch
+    runs-on: ubuntu-latest
+    container:
+      image: artemisbeta/railwayopsim-ci:latest
+      env:
+        DEBIAN_FRONTEND : noninteractive
+        LANG : 'en_GB.UTF-8' 
+        LANGUAGE : 'en_GB:en' 
+        LC_ALL : 'en_GB.UTF-8'
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-            - name: Extract branch name
-              shell: bash
-              run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-              id: extract_branch
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
 
-            - name: Create branch for PR
-              if: ${{ github.event_name == 'pull_request'}}
-              run: git switch -c dev
-            
-            - name: Retrieve Master
-              run: |
-                   git fetch origin master
-                   git checkout master
-                   git checkout ${{ steps.extract_branch.outputs.branch }}
-              if: ${{ github.event_name != 'pull_request'}}
+      - name: Create branch for PR
+        if: ${{ github.event_name == 'pull_request'}}
+        run: git switch -c dev
+      
+      - name: Retrieve Master
+        run: |
+            git fetch origin master
+            git checkout master
+            git checkout ${{ steps.extract_branch.outputs.branch }}
+        if: ${{ github.event_name != 'pull_request'}}
 
-            - name: Retrieve Master
-              run: |
-                   git fetch origin master
-                   git checkout master
-                   git checkout dev
-              if: ${{ github.event_name == 'pull_request'}}
+      - name: Retrieve Master
+        run: |
+          git fetch origin master
+          git checkout master
+          git checkout dev
+        if: ${{ github.event_name == 'pull_request'}}
 
-            - name: Run MR Merge Script
-              run: git_merge_ttb ${{ steps.extract_branch.outputs.branch }} --soft --ttb-path Program_Timetables
-              if: ${{ github.event_name != 'pull_request'}}
+      - name: Run MR Merge Script
+        run: git_merge_ttb ${{ steps.extract_branch.outputs.branch }} --soft --ttb-path Program_Timetables
+        if: ${{ github.event_name != 'pull_request'}}
 
-            - name: Run MR Merge Script
-              run: git_merge_ttb dev --soft --ttb-path Program_Timetables
-              if: ${{ github.event_name == 'pull_request'}}
+      - name: Run MR Merge Script
+        run: git_merge_ttb dev --soft --ttb-path Program_Timetables
+        if: ${{ github.event_name == 'pull_request'}}
 
-            - uses: actions/upload-artifact@v1
-              with:
-                name: results
-                path: mr_check_output
-              if: ${{ github.event_name == 'pull_request'}}
+      - uses: actions/upload-artifact@v1
+        with:
+          name: results
+          path: 
+            mr_check_output
+            TimetableChecker.zip
+            ttb_check.ps1
+        if: ${{ github.event_name == 'pull_request'}}
 
-            - uses: actions/download-artifact@v1
-              with:
-                name: results
-              if: ${{ github.event_name == 'pull_request'}}
-                
-            - name: comment PR
-              uses: machine-learning-apps/pr-comment@master
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                path: results/mr-result.md
-              if: ${{ github.event_name == 'pull_request'}}
+      - uses: actions/download-artifact@v1
+        with:
+          name: results
+        if: ${{ github.event_name == 'pull_request'}}
+          
+      - name: Comment Pull Request with Result
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: results/mr_check_output/mr-result.md
+        if: ${{ github.event_name == 'pull_request'}}
+
+      - name: Download Timetable Checker
+        run: |
+          git archive --remote=https://github.com/Railway-Op-Sim/CI-Development.git HEAD software/TimetableChecker.zip | tar -x
+          git archive --remote=https://github.com/Railway-Op-Sim/CI-Development.git HEAD scripts/ttb_check.ps1 | tar -x
+
+  run_timetable_check:
+    needs: ci-test
+    name: Run Timetable Checker
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Retrieve Timetable Checker
+        uses: actions/download-artifact@v1
+          with:
+            name: results
+          if: ${{ github.event_name == 'pull_request'}}
+      
+      - name: Unpack Validator
+        run: Expand-Archive -LiteralPath 'results\TimetableChecker.zip'
+        shell: powershell
+
+      - name: Prepare Files for Check
+        run: |
+            Copy-Item 'Program_Timetables\*.ttb' -destination '.'
+            Copy-Item 'Railway\*.rly' -destination '.'
+            Rename-Item -Path '*.ttb' -NewName 'temp.ttb'
+            Rename-Item -Path '*.rly' -NewName 'railway.rly'
+      
+      - name: Run Timetable Checker on Test Files
+        run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
+
+      - name: Check Output
+        run: .\results\ttb_check.ps1
+        shell: powershell
