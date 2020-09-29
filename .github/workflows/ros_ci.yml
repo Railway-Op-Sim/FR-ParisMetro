@@ -130,4 +130,4 @@ jobs:
             python-version: 3.8
 
       - name: Check Output
-        run: python result_check/ttb_check.py
+        run: python result_check/ttb_check.py Output.txt
