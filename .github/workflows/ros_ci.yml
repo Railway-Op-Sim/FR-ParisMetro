@@ -110,7 +110,7 @@ jobs:
           name: result_check
       
       - name: Unpack Validator
-        run: Expand-Archive -LiteralPath 'ttb_checker\software\TimetableChecker.zip' -D 'TimetableChecker'
+        run: Expand-Archive -LiteralPath 'ttb_checker\TimetableChecker.zip' -D 'TimetableChecker'
         shell: powershell
 
       - name: Prepare Files for Check
@@ -124,5 +124,5 @@ jobs:
         run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
 
       - name: Check Output
-        run: .\result_check\scripts\ttb_check.ps1
+        run: .\result_check\ttb_check.ps1
         shell: powershell
