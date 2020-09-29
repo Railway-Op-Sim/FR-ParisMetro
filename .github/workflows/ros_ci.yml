@@ -62,7 +62,6 @@ jobs:
             mr_check_output
             software/TimetableChecker.zip
             scripts/ttb_check.ps1
-        if: ${{ github.event_name == 'pull_request'}}
 
       - uses: actions/download-artifact@v1
         with:
