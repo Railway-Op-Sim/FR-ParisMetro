@@ -77,6 +77,9 @@ jobs:
       - name: Download Timetable Checker
         run: git clone https://github.com/Railway-Op-Sim/CI-Development.git
         
+      - name: Check Contents
+        run: ls CI-Development
+        
       - uses: actions/upload-artifact@v1
         with:
             name: ttb_check
