@@ -85,9 +85,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
             name: ttb_check
-            path: |
-                CI-Development/software/
-                CI-Development/scripts/
+            path: CI-Development/software/TimetableChecker.zip
 
   run_timetable_check:
     needs: ci-test
