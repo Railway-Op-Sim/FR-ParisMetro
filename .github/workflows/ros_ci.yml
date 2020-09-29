@@ -78,10 +78,11 @@ jobs:
         run: git clone https://github.com/Railway-Op-Sim/CI-Development.git
         
       - uses: actions/upload-artifact@v1
-        name: ttb_check
-        path:
-            software/TimetableChecker.zip
-            scripts/ttb_check.ps1
+        with:
+            name: ttb_check
+            path:
+                software/TimetableChecker.zip
+                scripts/ttb_check.ps1
 
   run_timetable_check:
     needs: ci-test
