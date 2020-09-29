@@ -91,7 +91,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: results
-        if: ${{ github.event_name == 'pull_request'}}
       
       - name: Unpack Validator
         run: Expand-Archive -LiteralPath 'results\software\TimetableChecker.zip'
