@@ -78,7 +78,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request'}}
 
       - name: Download Timetable Checker
-        run: git checkout https://github.com/Railway-Op-Sim/CI-Development.git
+        run: git clone https://github.com/Railway-Op-Sim/CI-Development.git
 
   run_timetable_check:
     needs: ci-test
