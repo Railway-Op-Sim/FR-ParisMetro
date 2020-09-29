@@ -84,8 +84,8 @@ jobs:
         with:
             name: ttb_check
             path: |
-                CI-Development/software/TimetableChecker.zip
-                CI-Development/scripts/ttb_check.ps1
+                CI-Development/software/
+                CI-Development/scripts/
 
   run_timetable_check:
     needs: ci-test
