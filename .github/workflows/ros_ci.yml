@@ -60,8 +60,6 @@ jobs:
           name: results
           path: 
             mr_check_output
-            software/TimetableChecker.zip
-            scripts/ttb_check.ps1
 
       - uses: actions/download-artifact@v1
         with:
@@ -78,6 +76,12 @@ jobs:
 
       - name: Download Timetable Checker
         run: git clone https://github.com/Railway-Op-Sim/CI-Development.git
+        
+      - uses: actions/upload-artifact@v1
+        name: ttb_check
+        path:
+        software/TimetableChecker.zip
+            scripts/ttb_check.ps1
 
   run_timetable_check:
     needs: ci-test
@@ -89,10 +93,10 @@ jobs:
       - name: Retrieve Timetable Checker
         uses: actions/download-artifact@v1
         with:
-          name: results
+          name: ttb_check
       
       - name: Unpack Validator
-        run: Expand-Archive -LiteralPath 'results\software\TimetableChecker.zip'
+        run: Expand-Archive -LiteralPath 'ttb_check\software\TimetableChecker.zip' -D 'TimetableChecker'
         shell: powershell
 
       - name: Prepare Files for Check
@@ -106,5 +110,5 @@ jobs:
         run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
 
       - name: Check Output
-        run: .\results\scripts\ttb_check.ps1
+        run: .\ttb_check\scripts\ttb_check.ps1
         shell: powershell
