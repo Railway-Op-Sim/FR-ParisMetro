@@ -119,6 +119,7 @@ jobs:
             Copy-Item 'Railway\*.rly' -destination '.'
             Rename-Item -Path '*.ttb' -NewName 'temp.ttb'
             Rename-Item -Path '*.rly' -NewName 'railway.rly'
+            Get-ChildItem -Path .
       
       - name: Run Timetable Checker on Test Files
         run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
