@@ -128,6 +128,10 @@ jobs:
       - name: Run Timetable Checker Executable
         run: .\TimetableChecker\TimetableChecker\TimetableChecker.exe
       
+      - name: Output the file
+        run: cat Output.txt
+        shell: powershell
+      
       - uses: actions/upload-artifact@v1
         with:
             name: ttb_check_output_file
