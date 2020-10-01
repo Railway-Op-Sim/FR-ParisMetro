@@ -122,7 +122,7 @@ jobs:
             Copy-Item 'Program_Timetables\*.ttb' -destination '.'
             Copy-Item 'Railway\*.rly' -destination '.'
             Rename-Item -Path '*.ttb' -NewName 'test.ttb'
-            Rename-Item -Path '*.rly' -NewName 'railway.rly'
+            Rename-Item -Path '*.rly' -NewName 'test.rly'
             Get-ChildItem -Path .
       
       - name: Run Timetable Checker Executable
