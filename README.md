@@ -1,5 +1,5 @@
 # Paris Métro, Paris, France
-Representation of the Paris Metro connect the suburbs of Paris with the city centre.
+Representation of the Paris Metro connecting the suburbs of Paris with the city centre.
 
 ![Track Diagram](https://raw.githubusercontent.com/Railway-Op-Sim/FR-ParisMetro/master/Images/ParisMetro.bmp)
 
