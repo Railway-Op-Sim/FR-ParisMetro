@@ -1,0 +1,16 @@
+rly_file = "RATP_ParisMetro.rly"
+ttb_files = [ "RATP_ParisMetro.ttb",]
+ssn_files = [ "RATP_ParisMetro_Initial_Session.ssn", ]
+img_files = [ "ParisMetro.bmp",]
+doc_files = [ "?????????????.txt",]
+release_date = "2023-??-??"
+version = "1.0.0"
+country_code = "FR"
+factual = true
+description = "Representation of the Paris Metro connecting the suburbs of Paris with the city centre."
+display_name = "Paris Metro"
+name = "Paris Metro"
+author = "RailOS DevTeam"
+contributors = []
+year = 2023
+signal_position = "right"
