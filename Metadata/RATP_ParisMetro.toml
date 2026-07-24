@@ -1,16 +1,52 @@
 rly_file = "RATP_ParisMetro.rly"
-ttb_files = [ "RATP_Line_2_only.ttb", "RATP_Line_7_only.ttb", "RATP_Line_5_only.ttb", "RATP_Line_3bis_only.ttb", "RATP_Line_8_only.ttb", "RATP_Line_3_only.ttb", "RATP_Line_9_only.ttb", "RATP_Line_13_only.ttb", "RATP_Line_12_only.ttb", "RATP_Line_7bis_only.ttb", "RATP_Line_11_only.ttb", "RATP_Line_6_only.ttb", "RATP_Line_1_only.ttb", "RATP_Line_14_only.ttb", "RATP_Line_4_only.ttb", "RATP_ParisMetro.ttb", "RATP_Line_10_only.ttb",]
-ssn_files = [ "RATP_ParisMetro_Initial_Session.ssn",]
-img_files = [ "ParisMetro.bmp",]
-doc_files = [ "Ligne13_Map.pdf", "Ligne8_Map.pdf", "Ligne7_Map.pdf", "Ligne2_Map.pdf", "Ligne3_Map.pdf", "Ligne10_Map.pdf", "Ligne7bis_Map.pdf", "Ligne9_Map.pdf", "Ligne6_Map.pdf", "Ligne11_Map.pdf", "Ligne3bis_Map.pdf", "Ligne1_Map.pdf", "Ligne12_Map.pdf", "README.md", "Ligne14_Map.pdf", "Ligne5_Map.pdf", "Ligne4_Map.pdf",]
-release_date = "2026-07-24"
+ttb_files = [
+    "RATP_Line_2_only.ttb",
+    "RATP_Line_7_only.ttb",
+    "RATP_Line_5_only.ttb",
+    "RATP_Line_3bis_only.ttb",
+    "RATP_Line_8_only.ttb",
+    "RATP_Line_3_only.ttb",
+    "RATP_Line_9_only.ttb",
+    "RATP_Line_13_only.ttb",
+    "RATP_Line_12_only.ttb",
+    "RATP_Line_7bis_only.ttb",
+    "RATP_Line_11_only.ttb",
+    "RATP_Line_6_only.ttb",
+    "RATP_Line_1_only.ttb",
+    "RATP_Line_14_only.ttb",
+    "RATP_Line_4_only.ttb",
+    "RATP_ParisMetro.ttb",
+    "RATP_Line_10_only.ttb",
+]
+ssn_files = ["RATP_ParisMetro_Initial_Session.ssn"]
+img_files = ["ParisMetro.bmp"]
+doc_files = [
+    "Ligne13_Map.pdf",
+    "Ligne8_Map.pdf",
+    "Ligne7_Map.pdf",
+    "Ligne2_Map.pdf",
+    "Ligne3_Map.pdf",
+    "Ligne10_Map.pdf",
+    "Ligne7bis_Map.pdf",
+    "Ligne9_Map.pdf",
+    "Ligne6_Map.pdf",
+    "Ligne11_Map.pdf",
+    "Ligne3bis_Map.pdf",
+    "Ligne1_Map.pdf",
+    "Ligne12_Map.pdf",
+    "README.md",
+    "Ligne14_Map.pdf",
+    "Ligne5_Map.pdf",
+    "Ligne4_Map.pdf",
+]
+release_date = "2023-06-24"
 version = "1.0.0"
 country_code = "FR"
 factual = true
-description = ""
-year = 2026
-display_name = "Parismetro"
-name = "Parismetro"
-signal_position = "left"
-author = "artemis-beta"
-contributors = []
+description = "Representation of the Paris Metro connecting the suburbs of Paris with the city centre."
+display_name = "Paris Metro"
+name = "Paris Metro"
+author = "RailOS DevTeam"
+contributors = ["Albert Ball", "Krizar"]
+year = 2023
+signal_position = "right"
